@@ -1,0 +1,11 @@
+I will add two facts, which have seldom occurred in
+ the composition of six, or even five quartos.
+<list rend="inline numbered">
+ <label>(1)</label>
+ <item>My first rough manuscript, without any
+   intermediate copy, has been sent to the press.</item>
+ <label>(2)</label>
+ <item>Not a sheet has been seen by any human
+   eyes, excepting those of the author and the printer:
+   the faults and the merits are exclusively my own.</item>
+</list>

@@ -1,0 +1,1 @@
+2021-06-08, OOP2 Kolokvijum II - zadatak po secanju kolega, socket varijanta sa cuvanjem istorije u fajlu.

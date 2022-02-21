@@ -1,0 +1,7 @@
+package vezba.kol1_fudbal_p02;
+
+public enum Grupa {
+
+	GRUPA_A, GRUPA_B, GRUPA_C, GRUPA_D, GRUPA_E, GRUPA_F, GRUPA_G, GRUPA_H,
+	OSMINA_FINALA, CETVRTINA_FINALA, POLUFINALE, TRECE_MESTO, FINALE;
+}

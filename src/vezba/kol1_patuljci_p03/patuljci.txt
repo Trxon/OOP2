@@ -1,0 +1,31 @@
+Oridgrour;98;1809;203.31
+Glorival;73;911;334.01
+Aratoli Zlatnonogi;42;999;554.31
+Gruldrael;26;1302;670.42
+Baritdraeck;130;1024;22.9
+Reirgatin;71;1380;338.02
+Dordumli;55;1380;522.05
+Halgrolin;89;1302;257.49
+Osin Gvozdeni;86;1812;294.15
+Dalorgurim;0;1302;829.56
+Tundred;102;1857;173.68
+Ununri;15;964;693.09
+Hongrel;112;1433;132.89
+Timnunri Munjokameni;31;1725;636.77
+Skofolim;125;911;64.42
+Jurdoic;25;1872;685.73
+Dalofraik;8;979;749.46
+Neznor;3;1302;780.5
+Kukut Bazaltozubi;68;999;384.67
+Boran;57;1153;509.46
+Galgrit;133;1137;0
+Orirnot Bronzanoledji;1;1380;829.03
+Mustomi;122;1137;98.66
+Nodgrek;78;1406;301.55
+Snafumi Hrastostit;90;1850;212.78
+Groumnom;49;1866;550.15
+Strondur Kamenobradi;65;1589;430.36
+Torsotum;63;1380;467.29
+Fobrod;112;1137;169.43
+Skolmas;11;966;719.42
+Krorgeag;41;911;594.18

@@ -1,0 +1,1 @@
+Jedina razlika izmedju dva resenja ovog domaceg zadatka je u implementaciji klase Poruka.

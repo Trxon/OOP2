@@ -1,0 +1,38 @@
+Zadatak*
+========
+
+Napraviti klijent-server aplikaciju koja sluzi za caskanje kori-
+steci Java RMI.
+
+Server kreira i registruje objekat koji ima metod zapocni() pom-
+ocu kojeg se zapocinje caskanje. Ovaj metod uvek vraca novi obj-
+ekat koji ima samo metod String poruka(String poruka) pomocu ko-
+jeg se salje poruka serveru i dobija odgovor na istu.
+
+Prva poruka poslata pomocu metoda poruka() mora biti "Dobro jut-
+ro!" ukoliko je trenutno vreme izmedju 04:00 i 11:59, "Dobar da-
+n!" ukoliko je trenutno vreme izmedju 12:00 i 17:59, ili mora b-
+iti "Dobro vece!" ukoliko je trenutno vreme izmedju 18:00 i 03:-
+59. Server kao odgovor salje isti string. Za bilo koju drugu po-
+zdravnu poruku ili ako poruka ne odgovara vremenu, metod baca I-
+llegalArgumentException.
+
+Nakon toga klijent moze slati sledece poruke serveru pomocu met-
+oda poruka(). Server razume iskljucivo poruke "Kako si?", "Osec-
+am se dobro." i "Osecam se lose.". Ako je poruka "Kako si?" ser-
+ver odgovara sa "Hvala na pitanju, odlicno! Kako se ti osecas?",
+na poruku "Osecam se dobro." odgovara sa "Drago mi je da to cuj-
+em!", a na poruku "Osecam se lose." odgovara sa "Zao mi je da to
+cujem.". Za svaku drugu poruku server vraca "Zao mi je, nisam r-
+azumeo poslednju poruku.".
+
+Napisati Java RMI klijent-server aplikaciju za prikaz podataka o
+Server naravno komunicira sa vise klijenata istovremeno, a komu-
+nikacija sa nekim klijentom se prekida kada klijent posalje "Do-
+vidjenja", na sta server odgovara "Hvala na divnoj komunikaciji,
+nadam se da cemo uskoro ponovo razgovarati.". Posle ovoga, metod
+poruka() uvek baca IllegalArgumentException. Takodje, komunikac-
+ija sa jednim klijentom ni na koji nacin ne utice na komunikaci-
+ju sa ostalim klijentima.
+
+* Resenje sa socketima, donekle izmenjeno zbog samih socketa...

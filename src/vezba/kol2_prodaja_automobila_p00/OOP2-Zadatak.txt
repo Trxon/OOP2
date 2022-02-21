@@ -1,0 +1,64 @@
+ZADATAK
+=======
+
+Napraviti klijent-server aplikaciju koristeci Java RMI koja pom-
+aze auto kuci "Opel" u prodaji automobila.
+
+Serverski objekat koji je registrovan, pruza metod novaKupovina-
+() pomocu kojeg klijent moze da zapocne kupovinu automobila. Me-
+tod prima ime, prezime i adresu stanovanja i onda vraca novi ob-
+jekat koji sluzi za nastavak kupovine.
+
+Pored ovoga serverski objekat ima i metod Model[] sviModeli() k-
+oji vraca niz raspolozivih modela. Model je nabrojivi tip i sad-
+rzi sledece modele Opel automobila: Corsa, Asta J, Astra K, Ins-
+ignia, Grandland X, Combo i Movano.
+
+Objekat za realizaciju kupovine nudi tri metoda od kojih se mor-
+aju svi pozivati redom kako bi korisnik popunio sve potrebne po-
+datke oko izbora automobila za kupovinu.
+
+Metod void model(Model) sluzi za izbor modela. On se mora pozva-
+ti pre svih ostalih metoda, i mora mu se proslediti neki od pre-
+thodno navedenih modela.
+
+Metod void brVrata(int) sluzi za izbor broja vrata. Metod se mo-
+ze pozvati samo posle uspesnog izbora modela, inace baca Illega-
+lStateException. Takodje, metod baca IllegalArgumentException a-
+ko broj vrata ne odgovara mogucnostima za izabrani model.
+
+Corsa i oba modela Astre mogu da imaju ili troje ili cetvoro vr-
+ata, Insignia i Grandland X mogu da imaju cetvoro ili petoro vr-
+ata, a Combo i Movano spadaju u komercijalna vozila i imaju pre-
+definisan broj vrata pa za njih nije potrebno pozvati metod.
+
+Nakon biranja modela i broja vrata, moze se pozvati metod za iz-
+bor boje. Boja je nabrojivi tip sa vrednostima: bela, siva, crn-
+a, crvena, plava i zelena.
+
+Metod void boja(Boja) sluzi za izbor boje. Ovaj metod se moze p-
+ozvati samo posle uspesnog izbora modela i broja vrata. U supro-
+tnom metod baca IllegalStateException. Takodje, metod baca Ille-
+galArgumentException ako boja ne odgovara mogucnostima za izabr-
+ani model.
+
+Napraviti klijent-server aplikaciju koristeci sockete koja sluzi
+Corsa, Astra J i Astra K dolaze u sivoj i crnoj boji, ali posto-
+ji mogucnost doplate za crvenu boju. Insignia, Movano i Combo d-
+olaze u crnoj i sivoj boji, dok Grandland X dolazi u beloj, siv-
+oj, i crnoj boji, a postoji mogucnost za doplatu za plavu ili c-
+rvenu boju. Svaka doplata boje kosta 800e i nema mogucnosti bir-
+anja vise boja.
+
+Pored opisana tri metoda, objekat za kupovinu nudi i cetvrti me-
+tod pod nazivom predracun() koji vraca sledece podatke o izabra-
+nom automobilu: model, broj vrata, boju, posebnu taksu koja se i
+odnosi na doplatu boje ukoliko postoji, ukupan iznos koji koris-
+nik treba da plati i broj porudzbine (random generisan broj koji
+se sastoji od pet cifara).
+
+Modeli Astra J i Astra K imaju cenu od 18.500e za modele sa cet-
+voro vrata, a cenu 15.800e za modele sa troje vrata. Corsa sa t-
+roje vrata kosta 10.000e, model sa cetvoro vrata ima cenu od 13-
+.400e. Insignia i Grandland X imaju cenu od 21.000e za modele sa
+cetvoro vrata, a modeli sa petoro vrata imaju cenu od 25.000e.

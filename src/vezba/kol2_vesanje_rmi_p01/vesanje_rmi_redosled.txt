@@ -1,0 +1,42 @@
+(1) kreiranje interfejsa Server i Igra, oba extends Remote
+	(a) Server - novaIgra(), za kreiranje nove igre (obavezno dodati throws RemoteException)
+	(b) Igra - pogadjaj(), za slanje karaktera serveru (obavezno dodati throws RemoteException)
+(2) kreiranje enuma Odgovor i klase Poruka (koja implements Serializable)
+(3) ServerImpl extends UnicastRemoteObject implements Server
+	(a) polja za rec koja se pogadja i maksimalan broj zivota
+	(b) neophodan prazan konstruktor koji throws RemoteException
+	(c) implementacija metoda 'Igra novaIgra()':
+		- odabira se rec iz seta predefinisanih reci
+		- uzima se maksimalan broj zivota
+		- kreira se nova instanca interfejsa Igra sa prosledjivanjem ta dva parametra
+		- ispisuje se poruka o pocetku igre (bice na serverskoj strani)
+(4) IgraImpl extends UnicastRemoteObject implements Server
+	(a) polja za rec, za set isprobanih karaktera, za broj zivota
+	(b) prazan konstruktor i konstruktor sa recju i brojem zivota, oba throws RemoteException
+	(c) implementacija metoda 'Poruka pogadjaj(char pokusaj)':
+		- ispisuje se prvi deo poruke sa prosledjenim karakterom...
+		- ...u set isprobanih karaktera dodaje se prosledjeni i racuna se trenutno stanje reci...
+		- ...zavrsava se ispis prikazom trenutnog stanja reci (bice na serverskoj strani)
+		- provera da li su zivoti <= 0 i ako da, slanje klijentu poruke tipa KRAJ sa trenutnom reci
+		- dekrementacija broja zivota
+		- provera da li je rec pogodjena i ako ne, slanje klijentu poruke tipa PROMASAJ sa trenutnom reci
+		- ako je rec pogodjena, slanje klijentu poruke tipa POGODAK sa trenutnom reci
+	(d) posebna metoda za racunanje trenutnog stanja reci
+	(e) toString() reprezentacija objekta
+(5) ServerProgram
+	(a)	sadrzi main
+	(b) kreira registar na nekom portu preko 'LocateRegistry.createRegistry(port)'
+	(c) kreira novu instancu Server interfejsa instanciranjem ServerImpl klase
+	(d) rebind novokreiranog objekta za ime "Igra"
+	(e) ispis poruke o pokretanju servera
+(6)	IgraProgram
+	(a) sadrzi main
+	(b) kreira registar na portu koji je odredio server sa 'LocateRegistry.getRegistry("localhost", port)'
+	(c) preuzima instancu Server interfejsa pomocu '(Server) registry.lookup("Igra")' (cast obavezan)
+	(d) kreira novu instancu Igra interfejsa instanciranjem IgraImpl klase
+	(e) kreiranje BufferedReadera za citanje unosa i instance Poruke koja ce primati odgovore od servera
+	(f) pokretanje petlje koja se izvrsava sve dok je Odgovor PROMASAJ (zavrsetak petlje na POGODAK i KRAJ)
+		- unos karaktera
+		- pokretanje metoda 'pogadjaj(char pokusaj)' objekta IgraImpl za unesen karakter...
+		- ...i preuzimanje Poruke koja se dobija kao rezultat metoda
+		- switch Poruke koja je stigla kao odgovor i ispis odgovarajuceg sadrzaja na ekran

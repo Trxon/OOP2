@@ -1,0 +1,11 @@
+<said who="#Wilson">Spaulding, he came down into the office just this day
+ eight weeks with this very paper in his hand, and he says:—
+<said who="#WilsonSpaulding">I wish to the Lord, Mr. Wilson, that I was a
+   red-headed man.</said>
+</said>
+<!-- ... -->
+<list type="speakers">
+ <item xml:id="Wilson">Wilson</item>
+ <item xml:id="WilsonSpaulding">Spaulding reported by Wilson</item>
+<!-- ...-->
+</list>

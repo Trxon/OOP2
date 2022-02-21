@@ -1,0 +1,26 @@
+Napisati graficku aplikaciju koja prikazuje knjige u biblioteci koje su dostupne
+za iznajmljivanje.
+
+Podaci o knjigama se nalaze u falu knjige.csv, tako sto je u svakom redu fajla
+opisana jedna knjiga. Za ucitavanje podataka vec postoji metod load() u klasi
+Loader koji vraca niz linija iz fajla.
+
+Za predstavljanje jedne knjige implementirati klasu Knjiga kao standardnu Java
+klasu sa privatnim poljima i pristupnim metodama. Takodje implementirati i sve
+ostale portebne metode i konstruktore.
+
+Za cuvanje svih podataka implementirati klasu Biblioteka koja cuva knjige u
+odgovarajucim kolekcijama.
+
+Potom kreirati Swing aplikaciju sa jednim glavnim prozorm kao sto je dato na
+slici. Takodje, implementirati i sve potrebne pratece klase i povezati ih na
+sledeci nacin:
+
+Lista sa leve strane sadrzi zanrove svih knijga iz fajla i omogucava korisniku
+da prikaze samo knjige u odabranim zanrovima. Moze biti selektovano vise od
+jednog zanra.
+
+Tabela na sredini prozora prikazuje podatke o knjigama u izabranim zanrovima.
+Knjige su sortirane po imenu pisca.
+
+Dugme na dnu prozora zatvara aplikaciju.

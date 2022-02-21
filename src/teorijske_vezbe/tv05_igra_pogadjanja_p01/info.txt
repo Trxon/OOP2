@@ -1,0 +1,39 @@
+1) krecemo od Server.java
+	- pravimo Socket, objekat koji ce slusati na prosledjenom portu racunara i ocekivati konekciju od klijenata
+	- socket za komunikaciju pravimo sa ss.accept(), a ako zelimo da komuniciramo sa vise korisnika onda cemo
+	  to staviti u neku petlju - dakle, glavna nit koju dobijamo besplatno napravice serverski socket i onda ce
+	  stalno da zove accept i svaki put kad prihvati konekciju ce da napravi novu nit koja ce da se snalazi sa tim
+	  klijentom, itd. (uslov petlje je !Thread.interrupted(), odnosno omogucava se izlazak iz glavne niti odnosno
+	  programa tako sto ce se prihvatanje konekcija obuhvatiti kada je glavna nit prekinuta)
+	- sledeci korak je kreiranje objekta Socket kojem se dodeljuje referenca na ss.accept(): Socket je objekat koji
+	  sluzi za komunikaciju bas sa jednim odredjenim klijentom kojeg dobijamo od ss.accept(); komuniciramo tako sto 
+	  kreiramo InputStream i OutputStream kako bismo mogli da primamo i saljemo informacije
+	- kreira se klasa IgraStanje koja ce se dalje baviti klijentima, zato sto zelimo da odvojimo logiku servera od
+	  logike klijenta i igranja igre (svaki igrac ce tako imati svoj broj, svoju statistiku, itd.)
+	- za samo igranje igre ce nam trebati nova nit tako da je najbolje da nad objektom klase IgraStanje napravimo
+	  tu novu nit i pozovemo je, tako se IgraStanje petlja sa citanjem i pisanjem podataka preko mreze a server je
+	  slobodan da prima konekcije i kreira nove igre
+2) IgraStanje.java
+	- igra je neka samostalna nit koja se bavi citanjem, pisanjem i slicno; pamtimo Socket koji smo dobili od servera
+	  i preko njega ide komunikacija; otvoricemo readere i writere u zavisnosti od toga sta hocemo da citamo i pisemo
+	- od socket mozemo da dobijemo .getInputStream() i .getOutputStream()
+	- kada kreiramo reader i writer oko socketa mozemo dobiti IOException koji treba staviti kao throws u zaglavlje
+	  zato sto ako tu dobijemo IOException ne mozemo od toga da se oporavimo (ako ne moze da se otvori ulazni tok)
+	- sto se tice informacije preko tokova, sve se baferuje - dakle on cita koliko moze pa onda prikazuje, odnosno
+	  PrintWriter nece slati kroz mrezu sve dok rucno ne flush-ujemo - zato koristimo zastavicu true na kraju kons-
+	  truktora (posto cemo slati samo pojedinacne znake necemo zeleti da cekamo da se napuni bafer pa da on to pusti
+	  vec cemo sa true ukljuciti auto-flush)
+	- kada ovo iznad ne bi bilo ukljuceno za PrintWriter u sustini bi se desilo da on ceka odredjeni broj znakova pa
+	  da tek onda salje!
+	- sada u run() kreiramo petlju da stalno citamo input iz in polja, da proveravamo da li je korisnik pogodio broj
+	  ili nije i da mu na osnovu toga posaljemo jedan ili drugi znak; stavljamo sada citanje iz ulaza in, ali rekli
+	  smo na pocetku da zelimo prvu stvar od klijenta koja dolazi da bude nadimak tako da cmeo staviti jedan in.readLine()
+	  i staviti nadimak u polje
+	- ako input baci NumberFormatException moramo vratiti ! i to radimo preko out.println("!" + e.getMessage()) - na
+	  isti nacin saljemo i ostale tri reakcije na unos
+	- sad pravimo klijenta koji se kaci na server
+3) IgraKlijent.java
+	- obicna Java aplikacija sa kojom treba da se konektujemo na server - treba da direktno napravimo Socket sa para-
+	  metrima servera koji vec postoji
+	- kreiramo in i out od Socketa, ovde to ne moraju biti polja klase vec samo lokalne instance objekata
+4) Sinhronizacija

@@ -1,0 +1,79 @@
+package oop2.rmi.igra_vesanja;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+import oop2.rmi.igra_vesanja.IgraVesanja;
+
+public class IgraVesanjaImpl extends UnicastRemoteObject implements IgraVesanja {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private int brojZivota;
+	private String trazenaRec;
+	private String tajnaRec;
+
+	public IgraVesanjaImpl(String trazenaRec) throws RemoteException {
+		this.trazenaRec = trazenaRec.toUpperCase();
+		this.tajnaRec = tajnaRec();
+		this.brojZivota = 6;
+	}
+	
+	
+	private boolean desilaSeZamena(String trazena, String slovo) {
+		boolean ret = false;
+		char[] znakoviTrazena = trazena.toCharArray();
+		char[] znakoviTajna = tajnaRec.toCharArray();
+		for (int i = 0; i < znakoviTrazena.length; i++) {
+			if (znakoviTrazena[i] == slovo.charAt(0)) {
+				znakoviTajna[i] = slovo.charAt(0);
+				ret = true;
+			}
+		}
+		tajnaRec = String.valueOf(znakoviTajna);
+		return ret;
+	}
+	
+	private String tajnaRec() {
+		return trazenaRec.replaceAll(".", "-");
+	}
+
+	@Override
+	public StatusIgre pogadjaj(String recIliSlovo) throws RemoteException {
+		if (recIliSlovo.length() == 1) {
+			if (!desilaSeZamena(trazenaRec, recIliSlovo)) {
+				brojZivota--;
+				if (brojZivota == 0) {
+					return StatusIgre.IZGUBILI_STE;
+				}
+			} else {
+				if (trazenaRec.equals(tajnaRec)) {
+					return StatusIgre.POBEDILI_STE;
+				}
+			}
+		} else {
+			if (trazenaRec.equals(recIliSlovo)) {
+				tajnaRec = trazenaRec;
+				return StatusIgre.POBEDILI_STE;
+			} else {
+				brojZivota--;
+				if (brojZivota == 0) {
+					return StatusIgre.IZGUBILI_STE;
+				}
+			}
+		}
+		return StatusIgre.POKUSAJTE_PONOVO;
+	}
+
+	@Override
+	public String prikaziStatus(StatusIgre status) throws RemoteException {
+		if (status == null || status == StatusIgre.POKUSAJTE_PONOVO) {
+			return tajnaRec + ", " + brojZivota + " | Unesite slovo ili celu reč.";
+		} else if (status == StatusIgre.POBEDILI_STE) {
+			return tajnaRec + ", " + brojZivota + " | Pogodili ste traženu reč.";
+		} else {
+			return tajnaRec + ", " + brojZivota + " | Izgubili ste. Reč koju je trebalo pronaći je " + trazenaRec + ".";
+		}
+	}
+
+}

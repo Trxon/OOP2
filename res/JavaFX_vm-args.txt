@@ -1,0 +1,6 @@
+Desktop:
+--module-path "C:\Program Files\Java\javafx-sdk-15.0.1\lib" --add-modules=javafx.controls
+
+Macbook Pro:
+--module-path "/Library/Java/javafx-sdk-15.0.1/lib" --add-modules=javafx.controls
+	AND DISABLE: Use the -XstartOnFirstThread argument when launching with SWT

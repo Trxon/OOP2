@@ -1,0 +1,97 @@
+1) interfejsi za server, za igru
+2) enum (ako treba)
+3) server program
+4) igra implementacija
+5) klijent
+
+Kada pravimo RMI sistem postoje dva dela - serverski (ServerPro-
+gram) i klijentski (KlijentProgram), koji koristi usluge server-
+a. Sta su usluge zavisi od samog servera - u ovom slucaju je po-
+gadjanje broja, ali moglo bi se desiti da imamo i koriscenje us-
+luga u smislu trazenja nekih fajlova i slicno.
+
+Moramo se dogovoriti oko interfejsa pomocu kojih ce klijent i s-
+erver da komuniciraju - nije slucaj samo kod distribuiranih apl-
+ikacije, vec svuda gde imamo dva dela koja komuniciraju uvek nam
+treba neki interfejs (ugovor) preko koga ce oni da komuniciraju.
+U nasem slucaju to su interfejs Server, interfejs Igra i sam en-
+um Odgovor. Sva tri dela su deo interfejsa i kako to fukncionis-
+e: imamo neki serverski objekat Server, pomocu njega pravimo no-
+vu igru, medjutim ta igra ponovo ima neki svoj interfejs - to j-
+e interfejs Igra, sa jednim metodom a kao rezultat vraca Odgovor
+sto je taj enum; uglavnom sve tri stvari su zajedno interfejs p-
+omocu kojeg pricaju server i klijent. Razlika u odnosu na dosad-
+asnje aplikacije je to sto ovi interfejsi imaju extends Remote i
+sto svaki njihov metod baca RemoteException, to je jedina razli-
+ka u odnosu na obicne Java aplikacije je sto udaljeni interfejsi
+imaju extends Remote i sto svaki metod baca RemoteException. Kod
+Odgovora ne, jer to je obican enum - igra i server mogu da se k-
+oriste udaljeno (da se pozivaju metodi objekata koji implementi-
+raju interfejse), a Odgovor ne - Odgovori se ne pozivaju udalje-
+no. Alternativno moze da extends Serializable, objekti se zapra-
+vo tada serijalizuju, salju na drugu stranu pa se deserijalizuju
+i tako postaju lokalne kopije na drugoj strani.
+
+Sledeci korak je implementacija interfejsa - ServerImpl, IgraIm-
+pl. Sto se Servera tice prosto smo uzeli i implementirali jedini
+metod a to je novaIgra(), kod Igre smo implementirali pogadjaj(-
+int pokusaj). Pored svega toga naznacili smo implements Igra, k-
+od Servera smo naznacili implements Server, a takodje imamo i e-
+xtends UnicastRemoteObject i imamo konstruktor koji baca Remote-
+Exception - nije bitno koji su parametri konstruktora, nije bit-
+no sta je telo, uglavnom najjednostavniji nacin da napravimo ud-
+aljeni objekat je da nasledimo UnicastRemoteObject i onda ne mo-
+ramo rucno da ga eksportujemo, medjutim taj objekat ima konstru-
+ktor koji baca RemoteException pa zato mora i nas konstruktor, s
+druge strane samo telo konstruktora je do nas.
+
+Svuda gde imamo throws RemoteException zapravo nikad necemo bac-
+iti taj izuzetak, u bilo kojoj implementaciji nismo mi koji bac-
+amo taj izuzetak vec ga baca od strane RMI sistema ako bude bilo
+gresaka u samoj komunikaciji samog RMI sistema, ne nasih metoda.
+
+Sto se serverskog dela tice, postoji i jedan treci deo - regist-
+ar, RMI registry sto je nesto kao telefonski imenik. Mozemo ima-
+ti puno udaljenih objekata (poput ServerImpl) i onda ga registr-
+ujemo u imeniku i pod imenom "igra" kazemo da imamo taj i taj o-
+bjekat. Znaci, pokrenuli smo server, zavrsili smo nas main, med-
+jutim cim smo nesto bind-ovali na RMI sistem u pozadini se napr-
+avilo par procesa pa imamo neke niti koje se brinu o slusanju k-
+onekcija i slicno, nista nismo sami pravili, ali iza postoji RMI
+sistem koji ima svoje niti koje rade svoje poslove u pozadini, i
+iako smo mi zavrsili sa nasom niti u vidu main metoda, cela vir-
+tuelna masina i dalje radi dokle god imamo neki eksportovan obj-
+ekat - cim smo napraivli ServerImpl, pozvali smo super() ctor od
+UnicastRemoteObject, on se registrovao negde i slusa konekcije i
+dokle god sve to radi i ovaj program nas radi. Registar je obic-
+an imenik gde na neki string zakacimo objekat pa onda kada nekom
+treba objekat pod tim imenom samo pronadje po imenu objekat koji
+radi sta treba i onda moze da koristi objekat. Sad, takodje kor-
+istimo rebind - postoje dva metoda "bind" i "unbind", kojima mo-
+zemo da zakacimo objekat podp nekim imenom i da otkacimo objekat
+sa imena. Rebind ipak radi obe stvari istovremeno - dobro je ko-
+ristiti ga zato sto ako slucajno ostane registar da radi (taj t-
+elefonski imenik nastavi) a nasa aplikacija pukne zbog izuzetka,
+ili baga ili necega, bind ce baciti izuzetak ako ne uspe da zak-
+aci objekat na dato ime iz razloga sto pod imenom vec postoji o-
+bjekat (stari puknuti objekat). Tokom debaga i razvoja bolje ko-
+ristiti rebind, i onda tek na kraju promeniti rebind na bind. T-
+o je sve sto server radi - napravi neki objekat, zatim ga zakaci
+pod nekim imenom i on je zavrsio svoj rad.
+
+Klijent radi nesto slicno samo u drugu stranu - prvo treba da p-
+ronadje taj telefonski imenik i onda da pozove lookup. Lookup v-
+raca nesto sto je tipa Remote, kao sto se vidi kada se predje k-
+urzorom preko njega - to je bitno, taj objekat koji nam vrati je
+neki udaljeni objekat, jedino sto za njih znamo je da extends R-
+emote tako da jedini tip osim da ovo ovde vrati bas sirov object
+je da nam vrati Remote. Svakako mi moramo da cast-ujemo u ono s-
+to nam treba kako bismo mogli da pozivamo metode koje taj objek-
+at ima, i naravno mi treba da smo svesni da pod tim imenom treba
+da se nalazi objekat jednog ili drugog tipa i koji ce to na kra-
+ju interfejs biti. Kad mi to nabavimo posle ga koristimo tako s-
+to zovemo njegove metode kao da su obicni lokalni metodi - poziv
+server.novaIgra() se ponasa kao da je obican lokalni metod, odn-
+osno kao da se nalazi u lokalnoj klijentskoj virtuelnoj masini a
+ne u serverskoj. 
+

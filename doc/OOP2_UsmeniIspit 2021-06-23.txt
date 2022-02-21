@@ -1,0 +1,62 @@
+USMENI ISPIT IZ OBJEKTNO ORIJENTISANOG PROGRAMIRANJA 2
+U VIDU PISMENOG TESTA - 23. VI 2021.
+
+1. Sta ce ispisati naredni kod i zasto (obrazloziti):
+
+  Integer x = 42;
+  int y = 42;
+  int z = x;
+  if (x == y) System.out.println("x == y");
+  if (x == z) System.out.println("x == z");
+  if (y == z) System.out.println("y == z");
+
+2. Kada se koja od dve naredne linije koda koriste i zasto:
+  Map<Integer, List<String>> map = new HashMap<>();
+  Map<Integer, List<String>> map = new HashMap();
+
+3. Sta su I/O tokovi u Javi i koje kategorizacije postoje?
+
+4. Sta su problemi kod I/O tokova u Javi?
+
+5. Zbog cega se koristi '?' kod generickih tipova?
+
+6. Zasto sledeci kod ne bi prosao kompajliranje:
+  Stack<Object> s = new Stack<Integer>();
+
+7. Zasto su uvedeni default metodi u interfejse?
+
+8. Sta su funkcionalni interfejsi? Navesti dva primera.
+
+9. Koja dva tipa medjuoperacija kod tokova postoje, navesti karakteristike svakog od tipova.
+
+10. Zasto je uvedena klasa Optional i cemu sluzi?
+
+11. Sta je thread context switch?
+
+12. Koji problemi postoje kod ostvarenja zivotnosti konkurentnih procesa?
+
+13. Navesti dva layout-a i opisati ih.
+
+14. Navesti tri glavne komponente dogadjaja i opisati ih.
+
+15. Sta je URI, koje kategorije postoje?
+
+16. Sta je datagram?
+
+17. Sta su stub-ovi i skeleton-i?
+
+18. Prilikom serijalizacije se cuvaju:
+  a) ime i signatura klase
+  b) vrednosti svih ne-statickih polja objekata
+  c) vrednosti svih referenciranih objekata
+  d) ** staticka polja unutrasnjih klasa
+  e) ** jos jedan netacan odgovor
+
+19. Koliko slojeva ima Java EE aplikacija (i zasto):
+  a) 2
+  b) 3
+  c) 4
+  d) 5
+  ** trik pitanje - odgovor je i 3 i 4, pogledati skriptu
+
+20. Koje kategorije EJB-ova postoje?

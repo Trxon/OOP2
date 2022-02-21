@@ -1,0 +1,33 @@
+Zadatak
+=======
+
+Napraviti klijent-server aplikaciju koristeci sockete koja sluzi
+kao pomoc pri detekciji ptice koju je klijent video.
+
+Pri povezivanju klijenta na server, server pita koji oblik ptice
+je vidjen.
+
+Napraviti klijent-server aplikaciju koristeci sockete koja sluzi
+Server prepoznaje po obliku tri razlicite vrste: golubove, laste
+i sove. Ukoliko klijent unese nesto sto nije jedna od te tri op-
+cije, server daje mogucnost klijentu da ponovo bira oblik. Nakon
+3 neuspesna unosa oblika server kao poruku vraca "Zao mi je, mo-
+ja baza podataka nije dovoljno velika..." i prekida konekciju.
+
+Ukoliko se unese regularan oblik server pita klijenta gde je pt-
+ica vidjena. Ukoliko je korisnik uneo goluba koji je vidjen u g-
+radu, server vraca kao rezultat "Divlji golub", ukoliko je golub
+koji je vidjen na selu server vraca "Gugutka", dok za goluba ko-
+ji je vidjen u sumi server vraca "Golub dupljas". Ukoliko koris-
+nik izabere lastu iz grada server kao odgovor vraca "Ciopa", uk-
+oliko je korisnik izabrao lastu sa sela server vraca "Seoska la-
+sta". Sova koja je vidjena u gradu je "Kukuvija", zatim sova ko-
+ja je vidjena na selu je "Cuk", zatim sova koja je vidjena u su-
+mi je "Sumska sova", a ukoliko nije vidjena ni na jednom od ovih
+podrucja onda je "Kukumavka". Za svaki od izbora koji ne potpada
+ni pod jednu navedenu kobinaciju server vraca poruku "Zao mi je,
+moja baza podataka nije dovoljno velika..."
+
+Server moze da pruzi pomoc za vise klijenata odjednom, a konekc-
+ija sa nekim klijentom se prekida nakon uspesne ili neuspesne d-
+etekcije ptice pre cega se ispisuje svaki korisnikov izbor.

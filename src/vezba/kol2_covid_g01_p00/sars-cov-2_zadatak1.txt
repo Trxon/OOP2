@@ -1,0 +1,64 @@
+/*
+ * Zadatak
+ * =======
+ *
+ * Napisati Java RMI klijent-server aplikaciju za prikaz podataka o
+ * trenutnoj pandemiji.
+ * 
+ * Server
+ * ------
+ *  
+ * Pri pokretanju, server odmah ucitava podatke iz fajla sars-cov-2
+ * .csv (podaci su dati u comma-separated values formatu). Prvi red
+ * sadrzi imena kolona dok svaki sledeci red sadrzi podatke za kon-
+ * kretan datum i konkretnu zemlju.
+ * 
+ * Za cuvanje podataka je potrebno napraviti klasu Zemlja koja sad-
+ * rzi podatke o imenu zemlje na engleskom jeziku, dvoslovnoj i tr-
+ * oslovnoj oznaci, kao i broju stanovnika i kontinentu na kojem se
+ * zemlja nalazi. Potrebno je napraviti i klasu Podatak koja sadrzi
+ * broj registrovanih slucajeva, broj umrlih, datum kao i referencu
+ * na zemlju za koju se podatak odnosi. Implementirati metode equa-
+ * ls() i hashCode() kako bi instance ovih klasa mogle da se koris-
+ * te u kolekcijama.
+ * 
+ * Server ucitava podatke iz fajla i smesta ih u dve liste. Prva l-
+ * ista sadrzi sve podatke iz fajla za koje kontinent nije "Other",
+ * dok druga lista sadrzi sve zemlje na koje se podaci odnose. U l-
+ * isti ne cuvati duplikate, vec svaku zemlju registrovati samo je-
+ * dnom.
+ * 
+ * Za pristup podacima, server implementira tri metoda koji su kli-
+ * jentu dostupni preko Java RMI.
+ * 
+ * Metod 
+ * 		List<Zemlja> zemlje() 
+ * vraca listu zemalja za koje postoje podaci.
+ * 
+ * Metod 
+ * 		List<LocalDate> datumi()
+ * vraca listu datuma za koje postoje podaci.
+ * 
+ * Metod
+ * 		Podatak podaci(Zemlja zemlja, LocalDate datum)
+ * vraca podatke za zadatu zemlju i datum. Ako u listi koja se nal-
+ * azi na serveru ne postoje podaci za zadatu zemlju i zadati datum
+ * metod vraca null.
+ * 
+ * Klijent
+ * -------
+ * 
+ * Klijentski program po pokretanju odmah ostvaruje konekciju na s-
+ * erver i trazi listu zemalja i datuma. U slucaju kada server nije
+ * dostupan, prikazuje se prigodna poruka o tome.
+ * 
+ * Potom, program prikazuje listu zemalja korisniku i trazi da kor-
+ * isnik izabere jednu od njih. Zemlja se moze izabrati nazivom, i-
+ * li jednom od oznaka. Potom, prikazuje listu datuma i trazi da k-
+ * orisnik izabere jedan od datuma sa liste.
+ * 
+ * Na kraju, klijentska aplikacija prikazuje ime zemlje, broj stan-
+ * ovnika, broj potvrdjenih slucajeva i broj umrlih za izabrani da-
+ * tum. Ako podaci ne postoje na serveru, ispisuje se prigodna por-
+ * uka.
+ */

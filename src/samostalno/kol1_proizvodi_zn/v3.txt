@@ -1,0 +1,49 @@
+import static org.svetovid.Svetovid.in;
+import static org.svetovid.Svetovid.out;
+
+/**
+ * U fajlu products.csv su dati podaci o upotrebi raznih prehrambenih proizvoda
+ * u Ujedinjenom Kraljevstvu Velike Britanije i Severne Irske. Za svaku godinu
+ * je data kolicina odgovarajucih jedinica koje (u proseku) potrosi jedan
+ * gradjanin za nedelju dana. Tamo gde podaci nisu poznati, nalazi se prazan
+ * string.
+ *
+ * Siroke kategorije proizvoda su detaljnije razvrstane u potkategorije i
+ * individualne vrste odmah u narednom redovima. Hijerarhija kategorija i
+ * potkategorija je definisana uvlacenjem (brojem tabova) u odnosu na prethodni
+ * red tabele.
+ *
+ * Implementirati nabrojivi tip koji definise jedinice mere koje se koriste u
+ * fajlu.
+ *
+ * Implementirati klasu "Proizvod" koja sadrzi sledeca polja:
+ *
+ * - Opis (String)
+ * - Jedinica (Enum)
+ * - Kolicina (Integer)
+ * - Kategorija (Proizvod)
+ *
+ * Implementirati klasu "Podaci" koja, koristeci instance klase "Proizvod", drzi
+ * podatke o koriscenju proizvoda razvrstano po godinama.
+ *
+ * Potom implementirati Java aplikaciju sa grafickim korisnickim interfejsom koja
+ * prikazuje podatke iz ulaznog fajla.
+ * 
+ * Graficki interfejs imeplemntirati sto pribliznije onom koji je dat na slici.
+ */
+
+public class Vezba3 {
+
+	private static String[][] load() {
+		String[] lines = in("products.csv").readAllLines();
+		String[][] data = new String[lines.length][];
+		for (int i = 0; i < lines.length; i++) {
+			data[i] = lines[i].split(";", -1);
+		}
+		return data;
+	}
+
+	public static void main(String[] args) {
+
+	}
+}

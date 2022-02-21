@@ -1,0 +1,73 @@
+ZADATAK
+=======
+
+/*
+* Napraviti klijent-server aplikaciju koristeci Java RMI koja pomaze przionici
+* kafe u prodaji po ukusu.
+*
+* Server kreira jedan udaljeni objekat za prijavljivanje i registruje ga.
+* Ovaj objekat ima jedan metod koji prima ime, prezime i adresu stanovanja
+* potencijalnog kupca. Metod vraca udaljeni objekat pomocu kojeg se vrsi
+* izbor kafe.
+*
+* Objekat za pomoc pri izboru ima metod void kategorija(String) koji mora da
+* se pozove pre svih ostalih metoda. Ovaj metod sluzi za izbor kategorije kafe:
+* filter kafa, espresso kafa i tradicionalna kafa.
+*
+* Po pozivu ovog metoda, moze se pozivati metod void aroma(String) koji sluzi
+* za detaljnije definisanje ukusa kafe.
+*
+* Ukoliko je pomocu prvog metoda izabrana filter kafa, ovaj metod treba da se
+* pozove dva puta: jednom za izbor izmedju sladjih i kiselijih kafa, i drugi
+* put za izbor izmedju jaceg i blazeg ukusa.
+*
+* Ukoliko je pomocu prvog metoda izabrana espresso kafa, ovaj metod sluzi za
+* izbor da li kupac zeli da kafa ima dodatnu aromu ili ne.
+*
+* Ukoliko je pomocu prvog metoda izabrana tradicionalna kafa, potencijalni
+* kupac moze da bira da li zeli kafu klasicne, srednje ili jake gorcine.
+*
+* Objekat za pomoc pri izboru kafe ima i metod Kafa preporuci() koji na osnovu
+* prikupljenih podataka preporucuje vrstu kafe koja bi se svidela potencijalnom
+* kupcu. Nabrojivi tip podataka koji je povratna vrednost ovog metoda treba
+* definisati tako da sadrzi sve vrste kafe opisane u nastavku teksta.
+*
+* Ako se metod aroma() pozove pre metoda kategorija() baca se IllegalStateException.
+* Isto vazi i ako se pozove metod preporuci() pre nego sto je pozvan metod
+* arome() i definisan potreban broj dodatnih podataka.
+*
+* Ukoliko korisnik izabere sladju kafu blazeg ukusa server preporucuje
+* Ecuador Drimazede cija je cena 570 dinara za 100g, a ukoliko izabere sladju
+* kafu jaceg ukusa server preporucuje Ecuador Pacamara cija je cena 580 dinara
+* za 100g. Ako korisnik izabere kiseliju kafu slabijeg ukusa server preporucuje
+* Panama Drimazede cija je cena 600 dinara za 100g, a ukoliko je izabrana
+* kiselija kafa jaceg ukusa onda se preporucuje Columbia cija je cena 650 dinara
+* za 100g.
+*
+* Ukoliko espresso kafa ima dodatnu aromu preporucuje se Brasil cija je cena
+* 450 dinara za 100g, a za kafu bez dodatne arome preporucuje se Ethiopia cija
+* je cena 420 dinara za 100g.
+*
+* Ukoliko se izabere klasicna jacina preporucuje se Classic kafa cija je cena
+* 85 dinara za 100g, ukoliko se izabere kafa srednje jacine preporucuje se
+* Premium cija je cena 95 dinara za 100g, a za kafu jake gorcine se preporucuje
+* Exclusive cija je cena 105 dinara za 100g.
+*
+* Posle uspesnog poziva metoda preporuci(), moze se pozvati metod int cena(int)
+* koji vraca cenu u dinarima za prosledjenu kolicinu preporucene kafe. Ako pre
+* poziva ovog metoda, nije uspesno preporucena kafa, ovaj metod baca
+* IllegalStateException, a ako je kolicina manja od 100g metod baca
+* IllegalArgumentException.
+*
+* Posle uspesnog poziva metoda cena(), moze se pozvati metod Racun racun() koji
+* kupcu salje predracun sa sledecim podacima: ime i prezime kupca, njegova
+* adresa, naziv preporucene kafe, kolicina u gramima i ukupna cena koju je
+* potrebno platiti. Ako pre poziva ovog metoda, nije uspesno pozvan metod
+* cena(), ovaj metod baca IllegalStateException.
+*
+* Napisati klijentsku aplikaciju koja se konekruje na server i omogucava
+* potencijalnom kupcu da koristi usluge preporucivanja kafe.
+*/
+public class ServerProgram {
+
+}
